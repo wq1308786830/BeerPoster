@@ -35,12 +35,16 @@ public class OrderLists extends AppCompatActivity implements AdapterView.OnItemC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        volleyPostList();
         setContentView(R.layout.activity_order_lists);
+        init();
+    }
+
+    private void init(){
+
+        volleyPostList();
         dataList = new ArrayList<Map<String, Object>>();
 
         listView = (ListView) findViewById(R.id.listView);
-
 
         listView.setOnItemClickListener(this);
         listView.setOnScrollListener(this);
