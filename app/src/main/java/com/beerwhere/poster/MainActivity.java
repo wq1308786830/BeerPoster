@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     private Button login_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
 
-                try{
+                try {
                     System.out.println("login name" + response);
                     if (response.getInt("data") == 1) {
                         System.out.println("wangqi is in");
@@ -55,18 +57,19 @@ public class MainActivity extends AppCompatActivity {
                         bundleM.putString("userid", response.getString("data"));  //查询出配送人员id，并通过intent传值给OrderLists的activity
                         login_intent.putExtras(bundleM);
                         startActivity(login_intent);
-                    }
-                    else{
+                    } else {
                         hintKb();
                         Toast.makeText(getApplicationContext(), "用户名或密码错误", Toast.LENGTH_SHORT).show();
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                hintKb();
+                Toast.makeText(getApplicationContext(), "网络错误", Toast.LENGTH_SHORT).show();
                 Log.i("network error", "error");
             }
         });
@@ -74,9 +77,10 @@ public class MainActivity extends AppCompatActivity {
         MyApplication.queue.add(request);
     }
 
-    public void loginCheck(View view){
+    public void loginCheck(View view) {
         volleyPost();
     }
+
     // 隐藏键盘
     private void hintKb() {
         // 得到InputMethodManager的实例
@@ -88,4 +92,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //返回主屏
+            Intent home = new Intent(Intent.ACTION_MAIN);
+            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            home.addCategory(Intent.CATEGORY_HOME);
+            startActivity(home);
+        }
+        return true;
+    }
 }

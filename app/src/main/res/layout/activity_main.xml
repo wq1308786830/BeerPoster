@@ -40,7 +40,8 @@
                 android:singleLine ="true"
                 android:textSize ="16sp"
                 android:hint="账号"
-                android:paddingLeft="10dp">
+                android:paddingLeft="10dp"
+                android:gravity="center">
 
                 <requestFocus />
             </EditText>
@@ -59,15 +60,16 @@
             android:layout_width ="fill_parent"
             android:layout_height ="44.0dip"
             android:background ="#ffffff"
-            android:gravity ="center_vertical"
             android:inputType ="textPassword"
             android:maxLength ="16"
             android:maxLines ="1"
+            android:textAlignment="center"
             android:textColor ="#ff1d1d1d"
             android:textColorHint ="#ff666666"
             android:textSize ="16.0sp"
             android:hint="密码"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:gravity="center" />
     </LinearLayout >
 
     <Button
